@@ -25,11 +25,14 @@ def makeProbGraph(l, m):
     trace = go.Scatter(
         x = x,
         y = y,
+        name= "(λ) = {}\n".format(l),
         mode = "lines+markers"
     )
 
     data = [trace]
-    py.offline.plot(data, filename="poisson_prob.html")
+    layout = go.Layout(showlegend=True)
+    fig = go.Figure(data=data, layout=layout)
+    py.offline.plot(fig, filename="poisson_prob.html")
 
 # Gráfico de distribuição acumulada
 def makeAccumGraph(l, m):
@@ -45,11 +48,14 @@ def makeAccumGraph(l, m):
     trace = go.Scatter(
         x = x,
         y = y,
+        name= "(λ) = {}\n".format(l),
         mode = "lines+markers"
     )
 
     data = [trace]
-    py.offline.plot(data, filename="poisson_accum.html")
+    layout = go.Layout(showlegend=True)
+    fig = go.Figure(data=data, layout=layout)
+    py.offline.plot(fig, filename="poisson_accum.html")
 
 # Calcular probabilidade acumulada
 def calcAccumProb(max, l, min=0):
@@ -60,7 +66,6 @@ def calcAccumProb(max, l, min=0):
         i += 1
 
     return accum
-
 
 # Recuperar probabilidade acumulada
 def getAccumProb(op, l):
@@ -100,10 +105,10 @@ def getAccumProb(op, l):
         max = int(input("Insera o valor de x2: "))
         accum = calcAccumProb(min = min, max = max, l = l)
         print("Probabilidade acumulada: P({} <= X <= {}) = {}".format(min, max, accum))
+    elif op == 0:
+        print(" <- ")
     else:
-        print("Opção inválida!\n");
-
-
+        print("Opção inválida!\n")
 
 # Menu
 def getOption():
@@ -114,6 +119,8 @@ def getOption():
     print("+ 2. Gráfico da função de distribuição acumulada +")
     print("+ 3. Cálculo de probabilidade no ponto           +")
     print("+ 4. Cálculo de uma probabilidade acumulada      +")
+    print("+ 5. Alterar Valor de Lambda (λ)                 +")
+    print("+ 6. Alterar Valor máximo para x                 +")
     print("+ 0. Sair                                        +")
     print("+{0}-+".format("-" * 47))
 
@@ -121,7 +128,7 @@ def getOption():
 
 # Main
 # Parâmetro lambda da distribuição Poisson
-l = int(input("Insira um valor para lambda: "))
+l = int(input("Insira um valor para lambda (λ): "))
 
 # Valor máximo de X
 m = int(input("Insira o valor máximo para x: "))
@@ -129,9 +136,9 @@ m = int(input("Insira o valor máximo para x: "))
 option = getOption()
 while option != 0:
     if option == 1:
-        makeProbGraph(l, m)
+        makeProbGraph(l, (m + 1))
     elif option == 2:
-        makeAccumGraph(l, m)
+        makeAccumGraph(l, (m + 1))
     elif option == 3:
         x = int(input("Insira o ponto: "))
         print("\nProbabilidade: {}".format(getY(l, x)))
@@ -145,10 +152,13 @@ while option != 0:
         print("6. Intervalo aberto, fechado ]x, y]")
         print("7. Intervalo fechado, aberto [x, y[")
         print("8. Intervalo fechado, fechado [x, y]")
-
+        print("0. Voltar")
         op = int(input("\nInsira a opção: "))
         getAccumProb(op, l)
-
+    elif option == 5:
+        l = int(input("Insira um novo valor para lambda (λ): "))
+    elif option == 6:
+        m = int(input("Insira o novo valor máximo para x: "))
 
     input()
     option = getOption()
