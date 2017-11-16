@@ -25,12 +25,15 @@ def makeProbGraph(l, m):
     trace = go.Scatter(
         x = x,
         y = y,
-        name= "(λ) = {}\n".format(l),
+        name = "(λ) = {}\n".format(l),
         mode = "lines+markers"
     )
 
     data = [trace]
-    layout = go.Layout(showlegend=True)
+    layout = go.Layout(
+        title='Gráfico da função de probabilidade',
+        showlegend=True
+    )
     fig = go.Figure(data=data, layout=layout)
     py.offline.plot(fig, filename="poisson_prob.html")
 
@@ -53,7 +56,10 @@ def makeAccumGraph(l, m):
     )
 
     data = [trace]
-    layout = go.Layout(showlegend=True)
+    layout = go.Layout(
+        title='Gráfico da função de distribuição acumulada',
+        showlegend=True
+    )
     fig = go.Figure(data=data, layout=layout)
     py.offline.plot(fig, filename="poisson_accum.html")
 
@@ -163,4 +169,4 @@ while option != 0:
     input()
     option = getOption()
 
-print("Bye :)")
+print("\nDeveloped by:\n - Gabriel Luciano\n - Geovane Fonseca\n - Luigi Domenico\nBye :)")
