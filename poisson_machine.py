@@ -26,7 +26,7 @@ def makeProbGraph(l, m):
         x = x,
         y = y,
         name = "(λ) = {}\n".format(l),
-        mode = "lines+markers"
+        mode = "markers"
     )
 
     data = [trace]
@@ -51,8 +51,17 @@ def makeAccumGraph(l, m):
     trace = go.Scatter(
         x = x,
         y = y,
-        name= "(λ) = {}\n".format(l),
-        mode = "lines+markers"
+        mode = 'lines+markes',
+        name = "(λ) = {}\n".format(l),
+        hoverinfo = y,
+        line = dict(
+            shape = 'vhv' 
+        )
+
+      #  x = x,
+      #  y = y,
+      #  name= "(λ) = {}\n".format(l),
+      #  mode = "lines+markers"
     )
 
     data = [trace]
